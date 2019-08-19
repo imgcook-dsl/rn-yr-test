@@ -53,7 +53,7 @@ module.exports = function(layoutData, options) {
           result += `<Text style={styles.${className}} numberOfLines={${lines}}>${innerText}</Text>`;
 
           if (!raxImport[type]) {
-            raxImport[type] = `import Text from 'rax-text';`;
+            raxImport[type] = `import {Text} from 'react-native';`;
           }
 
           if (json.style.lines == 1) {
@@ -73,7 +73,7 @@ module.exports = function(layoutData, options) {
             result += `<View style={styles.${className}} />`;
           }
           if (!raxImport[type]) {
-            raxImport[type] = `import View from 'rax-view';`;
+            raxImport[type] = `import {View} from 'react-native';`;
           }
           break;
         case 'picture':
@@ -85,10 +85,10 @@ module.exports = function(layoutData, options) {
           } else {
             source = `'${json.attrs.src}'`;
           }
-          result += `<Picture resizeMod={'contain'} style={styles.${className}} source={{uri: ${source}}} />`;
+          result += `<Image resizeMod={'contain'} style={styles.${className}} source={{uri: ${source}}} />`;
 
           if (!raxImport[type]) {
-            raxImport[type] = `import Picture from 'rax-picture';`;
+            raxImport[type] = `import {Image} from 'react-native';`;
           }
           break;
       }
@@ -114,7 +114,10 @@ module.exports = function(layoutData, options) {
       : '';
 
   renderData.modClass = `
-    class Mod extends Component {
+    import React from 'react';
+    import {View,Text,Image} from 'react-native';
+
+    class Mod extends React.Component {
       render() {
         ${dataBinding}
         return (
